@@ -1,0 +1,13 @@
+#video {
+    background-color: #3e4a56;
+}
+
+.videoPreviewContainer {
+    background-color: grey;
+    width: 100%;
+    height: 100px;
+}
+
+.songList .row {
+    margin-top: 1em;
+}
