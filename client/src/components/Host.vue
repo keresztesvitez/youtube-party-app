@@ -12,24 +12,34 @@
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 songList">
-                    <ListItem v-for="video in videos" title="video.title" url="video.url"></ListItem>
+                    <PlayList :videos="videos"></PlayList>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                    <button class="btn-lg btn-primary"><i class="fas fa-pause"></i>&nbsp;Pause</button>
-                    <button class="btn-lg btn-info"><i class="fas fa-step-forward"></i>&nbsp;Next</button>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                    <div class="row">
-                        <div class="col-sm-4 videoPreviewContainer"></div>
-                        <div class="col-sm-8">
-                            <h5>Artist Long Name - Awesome Song To Listen</h5>
-                        </div>
-                    </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <Controls></Controls>
                 </div>
             </div>
         </div>
     </div>
 
 </template>
+
+<script>
+import PlayList from './PlayList'
+import Controls from './Controls'
+
+export default {
+    name: 'Host',
+    components: {PlayList, Controls},
+    data: function() {
+        return {
+            videos: [
+                {"image":"https://placekitten.com/250/100?random", "title":"Video 1"},
+                {"image":"https://placekitten.com/250/100?random", "title":"Video 2"},
+                {"image":"https://placekitten.com/250/100?random", "title":"Video 3"}
+            ]
+        }
+    }
+}
+</script>
