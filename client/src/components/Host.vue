@@ -7,17 +7,20 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
-                    <div class="embed-responsive embed-responsive-16by9">
+                    <!-- <div class="embed-responsive embed-responsive-16by9">
                         <iframe id="video" class="embed-responsive-item" src="" allow="encrypted-media"></iframe>
+                    </div> -->
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <div id="player"></div>
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 songList">
-                    <PlayList :videos="videos"></PlayList>
+                    <PlayList :videos="appState.videos"></PlayList>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                    <Controls></Controls>
+                    <Controls @togglePlay="playToggleHandler"></Controls>
                 </div>
             </div>
         </div>
@@ -28,18 +31,41 @@
 <script>
 import PlayList from './PlayList'
 import Controls from './Controls'
+import YouTubePlayer from 'youtube-player'
+import Video from '../classes/Video.js'
+
+let appState = {
+    currentlyPlayingIdx: 0,
+    videos: [
+        new Video("uCLEq9V0-Yk"), new Video("YRNIndNHloU"), new Video("izRZxhqfk0Y")
+    ],
+    player: {}
+}
 
 export default {
     name: 'Host',
     components: {PlayList, Controls},
     data: function() {
         return {
-            videos: [
-                {"image":"https://placekitten.com/250/100?random", "title":"Video 1"},
-                {"image":"https://placekitten.com/250/100?random", "title":"Video 2"},
-                {"image":"https://placekitten.com/250/100?random", "title":"Video 3"}
-            ]
+            appState
         }
+    },
+    methods: {
+        initHost() {
+            this.initVideoPlayer();
+        },
+        initVideoPlayer() {
+            appState.player = YouTubePlayer("player")
+            appState.player.loadVideoById("uCLEq9V0-Yk")
+            appState.player.stopVideo()
+        },
+        playToggleHandler() {
+            console.log('hjandlin')
+            appState.player.playVideo()
+        }
+    },
+    mounted() {
+        this.initHost();
     }
 }
 </script>

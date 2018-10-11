@@ -18,6 +18,7 @@ export default {
         },
         toggle() {
             this.playing = !this.playing
+            this.$emit('togglePlay')
         }
     },
     data() {
