@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button class="btn-lg btn-primary" @click="toggle">
+        <button class="btn-lg btn-primary" @click="togglePlay">
             <i class="fas" :class="{'fa-pause':playing, 'fa-play':!playing}"></i>&nbsp;{{toggleLabel}}
         </button>
         <button class="btn-lg btn-info" v-on:click="next">
@@ -15,12 +15,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
     name: 'Controls',
     methods: {
-        next() {
-            console.log("cica")
-        },
-        toggle() {
-            this.$store.dispatch('playlist/togglePlay')
-        }
+        ...mapActions('playlist', ['next', 'togglePlay'])
     },
     computed: {
         toggleLabel() {

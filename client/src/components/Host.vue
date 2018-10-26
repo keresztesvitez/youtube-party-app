@@ -20,7 +20,7 @@
             </div>
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                    <Controls @togglePlay="playToggleHandler"></Controls>
+                    <Controls></Controls>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@ import Controls from './Controls'
 import YouTubePlayer from 'youtube-player'
 import Video from '../classes/Video.js'
 
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 let appState = {
     player: {}
@@ -48,6 +48,18 @@ export default {
             appState
         }
     },
+    watch: {
+        playing(newValue, oldValue) {
+            if (newValue) {
+                appState.player.playVideo()
+            } else {
+                appState.player.pauseVideo()
+            }
+        },
+        playingIndex(newValue, oldValue) {
+            console.log(this.currentVideo)
+        }
+    },
     methods: {
         initHost() {
             this.initVideoPlayer();
@@ -56,19 +68,15 @@ export default {
             appState.player = YouTubePlayer("player")
             appState.player.loadVideoById("uCLEq9V0-Yk")
             appState.player.stopVideo()
-        },
-        playToggleHandler() {
-            console.log('hjandlin')
-            appState.player.playVideo()
         }
     },
     mounted() {
         this.initHost();
     },
     computed: {
-        videos() {
-            return this.$store.getters['playlist/videos'];
-        }
-    }
+        ...mapGetters('playlist', [
+        'playing', 'videos', 'currentVideo', 'playingIndex'
+    ])
+  }
 }
 </script>

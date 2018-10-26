@@ -18,6 +18,12 @@ const getters = {
   },
   videos(state) {
     return state.videos
+  },
+  currentVideo(state) {
+    return state.videos[state.playingIndex]
+  },
+  playingIndex(state) {
+    return state.playingIndex
   }
 }
 
@@ -25,6 +31,9 @@ const getters = {
 const actions = {
   togglePlay(context) {
     context.commit('togglePlay')
+  },
+  next(context) {
+    context.commit('next')
   }
 }
 
@@ -32,6 +41,9 @@ const actions = {
 const mutations = {
   togglePlay(state) {
     state.playing = !state.playing
+  },
+  next(state) {
+    state.playingIndex++
   }
 }
 
