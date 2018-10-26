@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
     name: 'Controls',
     methods: {
@@ -17,18 +19,15 @@ export default {
             console.log("cica")
         },
         toggle() {
-            this.playing = !this.playing
-            this.$emit('togglePlay')
-        }
-    },
-    data() {
-        return {
-            playing: false
+            this.$store.dispatch('playlist/togglePlay')
         }
     },
     computed: {
         toggleLabel() {
-            return this.playing ? "Pawse" : "Play"
+            return this.$store.getters['playlist/playing'] ? "Pawse" : "Play"
+        },
+        playing() {
+            return this.$store.getters['playlist/playing']
         }
     }
 }

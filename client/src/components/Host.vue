@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 songList">
-                    <PlayList :videos="appState.videos"></PlayList>
+                    <PlayList :videos="videos"></PlayList>
                 </div>
             </div>
             <div class="row">
@@ -34,11 +34,9 @@ import Controls from './Controls'
 import YouTubePlayer from 'youtube-player'
 import Video from '../classes/Video.js'
 
+import { mapState, mapActions } from 'vuex'
+
 let appState = {
-    currentlyPlayingIdx: 0,
-    videos: [
-        new Video("uCLEq9V0-Yk"), new Video("YRNIndNHloU"), new Video("izRZxhqfk0Y")
-    ],
     player: {}
 }
 
@@ -66,6 +64,11 @@ export default {
     },
     mounted() {
         this.initHost();
+    },
+    computed: {
+        videos() {
+            return this.$store.getters['playlist/videos'];
+        }
     }
 }
 </script>
