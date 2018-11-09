@@ -57,11 +57,7 @@ const mutations = {
   next(state) {
     console.log(state.videos.length)
     console.log(state.playingIndex)
-    if (state.playingIndex < state.videos.length - 1) {
-      state.playingIndex++
-    } else {
-      state.playingIndex = 0
-    }
+    state.playingIndex = (state.playingIndex + 1) % state.videos.length
   }
 }
 
