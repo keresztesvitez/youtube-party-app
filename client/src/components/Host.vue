@@ -57,7 +57,9 @@ export default {
             }
         },
         playingIndex(newValue, oldValue) {
-            console.log(this.currentVideo)
+            console.log(this.currentVideo.videoId)
+            appState.player.loadVideoById(this.currentVideo.videoId)
+            this.play()
         }
     },
     methods: {
@@ -66,9 +68,10 @@ export default {
         },
         initVideoPlayer() {
             appState.player = YouTubePlayer("player")
-            appState.player.loadVideoById("uCLEq9V0-Yk")
+            appState.player.loadVideoById(this.currentVideo.videoId)
             appState.player.stopVideo()
-        }
+        },
+        ...mapActions('playlist', ['togglePlay', 'play', 'pause'])
     },
     mounted() {
         this.initHost();

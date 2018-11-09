@@ -32,6 +32,12 @@ const actions = {
   togglePlay(context) {
     context.commit('togglePlay')
   },
+  play(context) {
+    context.commit('play')
+  },
+  pause(context) {
+    context.commit('pause')
+  },
   next(context) {
     context.commit('next')
   }
@@ -42,8 +48,20 @@ const mutations = {
   togglePlay(state) {
     state.playing = !state.playing
   },
+  play(state) {
+    state.playing = true
+  },
+  pause(state) {
+    state.playing = false
+  },
   next(state) {
-    state.playingIndex++
+    console.log(state.videos.length)
+    console.log(state.playingIndex)
+    if (state.playingIndex < state.videos.length - 1) {
+      state.playingIndex++
+    } else {
+      state.playingIndex = 0
+    }
   }
 }
 
